@@ -14,10 +14,12 @@ const MainRouter = () => {
     return(
 
         <Router>
-        <Header />
-        <ViewBug />
-        <CreateBug />
-        <EditBug />
+            
+            <Header />
+            <ViewBug />
+            <CreateBug />
+            <EditBug />
+            
             <Routes>
                 <Route path='/' element={<Login />}></Route>
                 <Route path='/dashboard' element={<Dashboard />}></Route>

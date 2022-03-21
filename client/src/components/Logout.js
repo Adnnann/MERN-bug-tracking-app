@@ -1,5 +1,9 @@
 import Button from '@mui/material/Button'
 import { makeStyles } from '@mui/styles';
+import { useDispatch } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import { resetStore, signoutUser } from '../features/bugsSlice';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     logout:{
@@ -19,9 +23,19 @@ const useStyles = makeStyles((theme) => ({
 const Logout = () => {
 
     const classes = useStyles()
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const signout = () => {
+        dispatch(signoutUser())
+        dispatch(resetStore())
+        navigate('/')
+    }
 
     return(
-        <Button variant='contained' className={classes.logout}>Logout</Button>
+        <Button variant='contained' 
+        className={classes.logout}
+        onClick={signout}>Logout</Button>
     )
 }
 

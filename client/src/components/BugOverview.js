@@ -3,8 +3,8 @@ import Grid from '@mui/material/Grid'
 import Item from '@mui/material/Grid'
 import { Box } from "@mui/system"
 import { makeStyles } from "@mui/styles"
-import { setBug } from "../features/bugsSlice"
-import { useDispatch } from "react-redux"
+import { getBugs, setBug } from "../features/bugsSlice"
+import { useDispatch, useSelector } from "react-redux"
 
 
 const useStyle = makeStyles((theme)=>({
@@ -34,16 +34,17 @@ const BugsOverview = () => {
 
     const classes = useStyle()
     const dispatch = useDispatch()
+    const bugsOverview = useSelector(getBugs)
    
     const priority = ['high', 'medium','low']
 
-    const bugsOverview = []
+    //const bugsOverview = []
 
-    for(let i=0; i<20; i++){
-        bugsOverview.push({id:i, priority:priority[Math.floor(Math.random()*3)], n:1, name: `test test test test tes test`+ i, appVersion:`v`+Math.floor(Math.random()*2)+`.0` })
-    }
+    // for(let i=0; i<20; i++){
+    //     bugsOverview.push({id:i, priority:priority[Math.floor(Math.random()*3)], n:1, name: `test test test test tes test`+ i, appVersion:`v`+Math.floor(Math.random()*2)+`.0` })
+    // }
 
-    console.log(typeof bugsOverview)
+    // console.log(typeof bugsOverview)
 
     return(
  <Grid container justifyContent='center' className={classes.bugsContainer}>    
@@ -78,7 +79,7 @@ const BugsOverview = () => {
         )
     })
            
-    : null}
+    : 'No bugs'}
  </Grid>)
 }
     

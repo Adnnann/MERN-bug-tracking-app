@@ -3,6 +3,8 @@ import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import { makeStyles } from '@mui/styles';
 import { useReducer } from "react";
+import { createBug, getUserSigninData, setBug, setCreateBug } from "../features/bugsSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 
 
@@ -56,13 +58,10 @@ const useStyles = makeStyles((theme) => ({
 const DashboardButtons = ({dashboard, viewBugs}) => {
  
     const classes = useStyles();
-  //works just fine
-  //if retreived server message is anything other than Authorized user button create bug will
-  //not be displayed
-    const user = {
-      message:'Authorized user'
-    }
+    const dispatch = useDispatch()
+    const userLoginData = useSelector(getUserSigninData)
 
+    
     return (
       <div className={classes.container}>
         <ButtonGroup
@@ -72,8 +71,8 @@ const DashboardButtons = ({dashboard, viewBugs}) => {
         >
           <button className={classes.button} style={{backgroundColor:dashboard}}>Dashboard</button>
           <button className={classes.button} style={{backgroundColor:viewBugs}}>View Bug</button>
-          {user.message === 'Authorized user' ? 
-          <button className={classes.button}>Create Bug</button>
+          {Object.keys(userLoginData).length !== 0 && userLoginData.user.role === 1 ? 
+          <button className={classes.button} onClick={()=>dispatch(setCreateBug(true))}>Create Bug</button>
           : null}
         </ButtonGroup>
       </div>

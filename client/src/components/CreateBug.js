@@ -16,6 +16,7 @@ import { Input } from '@mui/material';
 import { DialogContent } from '@mui/material';
 import { Menu } from '@mui/material';
 import { MenuItem } from '@mui/material';
+import { useState } from 'react';
 
 
 
@@ -60,17 +61,31 @@ const useStyle = makeStyles((theme)=>({
 const CreateBug = () => {
   
 const dispatch = useDispatch()
-const bug = useSelector(getCreateBug)
-
-
+const createBug = useSelector(getCreateBug)
 const classes = useStyle()
+const [bug, setBug] = useState({
+    name: '',
+    details:'',
+    steps:'',
+    version:'',
+    priority:'',
+    assigned:'',
+    creator:''
+})
+
+const handleChange = name => event => {
+    setBug({
+        ...bug,
+        [name]:event.target.value
+    })
+}
 
 
   return (
 
     <Dialog
-    fullScreen
-    open={bug}
+    maxWidth='20%'
+    open={createBug}
     onClose={()=>dispatch(setCreateBug(false))}
     aria-labelledby="modal-modal-title"
     aria-describedby="modal-modal-description"

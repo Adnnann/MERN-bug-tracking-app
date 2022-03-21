@@ -4,6 +4,10 @@ import DashboardButtons from './DashboardButtons'
 import Logout from './Logout'
 import ReportedBugsPriority from './ReportedBugsPriority'
 import { makeStyles } from '@mui/styles'
+import { useEffect } from 'react'
+import { resetStore, getToken, userToken, getUserSigninData } from '../features/bugsSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -17,6 +21,22 @@ const useStyle = makeStyles((theme)=>({
     
 }))
 const Dashboard = () => {
+
+    const token = useSelector(getToken)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    
+    useEffect(()=>{
+        dispatch(userToken())
+        //In case user tried to visit url /protected without token, redirect 
+        //to signin page
+        if(token === 'Request failed with status code 500' 
+            || token ==='Request failed with status code 401'){
+            dispatch(resetStore())
+            navigate('/')
+        }
+        
+    },[token.length, dispatch])
 
     const classes = useStyle()
   

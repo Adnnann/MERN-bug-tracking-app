@@ -6,6 +6,8 @@ import { makeStyles } from '@mui/styles';
 import { useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
+import { getUserSigninData, loginUser } from '../features/bugsSlice';
+import { useEffect } from 'react';
 
 
 const useStyles = makeStyles({
@@ -41,21 +43,29 @@ const Login = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const userLoginData = useSelector(getUserSigninData)
+
+    useEffect(()=>{
+        if(userLoginData.hasOwnProperty('token')){
+            navigate('/dashboard')
+        }
+    }, [userLoginData])
+
     //const userSigninData = useSelector(getUserSigninData)
     //const token = useSelector(getUserToken)
     const classes = useStyles()
     const [values, setValues] = useState({
-        email:'',
+        name:'',
         password:'',
     })
 
      // send request to server to login user and in case there are errors collect error
      const clickSubmit = () => {
         const user = {
-            email: values.email || undefined,
+            name: values.name || undefined,
             password: values.password || undefined
         }
-       // dispatch(signinUser(user))    
+        dispatch(loginUser(user))
     }
 
     // get values from input fields
@@ -63,11 +73,7 @@ const Login = () => {
         setValues({...values, [name]: event.target.value})
     }
 
-    const redirectToSignup = () => {
-        navigate('/signup')
-    }
-
-
+   
 
     return(
         <Grid container justifyContent='center'>
@@ -79,22 +85,22 @@ const Login = () => {
     <CardContent>
         <Typography variant='h6' className={classes.tittle}>Sign In</Typography>
 
-        <TextField id="email" type='email' label="Email" className={classes.textField}
-        value={values.email} onChange={handleChange('email')} margin="normal" />
+        <TextField id="name" type='text' label="Username" className={classes.textField}
+        value={values.email} onChange={handleChange('name')} margin="normal" />
         <br />
 
         <TextField id="password" type='password' label="Password" className={classes.textField}
         value={values.password} onChange={handleChange('password')} margin="normal" />
         <br />
         
-        { /*//display error returned from server
-            Object.keys(userSigninData).length !== 0 && (
+        { //display error returned from server
+            Object.keys(userLoginData).length !== 0 && (
                 <Typography component='p' color='error'>
                     <Icon color='error' className={classes.error}></Icon>
-                    {userSigninData.error}
+                    {userLoginData.error}
                 </Typography>
             )
-        */}
+        }
 
     </CardContent>
 
