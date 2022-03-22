@@ -1,12 +1,17 @@
-import Grid from "@mui/material";
-import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import { makeStyles } from '@mui/styles';
-import { useReducer } from "react";
-import { createBug, getUserSigninData, setBug, setCreateBug } from "../features/bugsSlice";
+import {  allUsers, 
+          getDashboardColor, 
+          getUserSigninData, 
+          getViewBugsColor, 
+          setCreateBug, 
+          setCreateBugColor, 
+          setDashboardColor, 
+          setViewBugColor,
+          getCreateBugsColor 
+} from "../features/bugsSlice";
 import { useDispatch, useSelector } from "react-redux";
-
-
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -55,12 +60,42 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 
-const DashboardButtons = ({dashboard, viewBugs}) => {
+const DashboardButtons = () => {
  
     const classes = useStyles();
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    //very ugly solution for setting background colors for displayed buttons
+    //but effective one
+    const dashboardColor = useSelector(getDashboardColor)
+    const createBugColor = useSelector(getCreateBugsColor)
+    const viewBugsColor = useSelector(getViewBugsColor)
+
     const userLoginData = useSelector(getUserSigninData)
 
+    const dashboardSet = () => {
+      dispatch(setDashboardColor(true))
+      dispatch(setCreateBugColor(false))
+      dispatch(setViewBugColor(false))
+      navigate('/dashboard')
+    }
+
+    const viewBugsSet = () => {
+      dispatch(setViewBugColor(true))
+      dispatch(setDashboardColor(false))
+      dispatch(setCreateBugColor(false))
+      
+        navigate('/viewBugs')
+    }
+
+    const createBugSet = () => {
+      dispatch(setDashboardColor(false))
+      dispatch(setCreateBugColor(true))
+      dispatch(setViewBugColor(false))
+      dispatch(allUsers())
+      dispatch(setCreateBug(true))
+    }
     
     return (
       <div className={classes.container}>
@@ -69,10 +104,17 @@ const DashboardButtons = ({dashboard, viewBugs}) => {
           className={classes.root}
           classes={{ groupedOutlined: classes.groupedOutlined }}
         >
-          <button className={classes.button} style={{backgroundColor:dashboard}}>Dashboard</button>
-          <button className={classes.button} style={{backgroundColor:viewBugs}}>View Bug</button>
+          <button className={classes.button} 
+          style={{backgroundColor:dashboardColor ? 'lightgrey' : 'white'}}
+          onClick={dashboardSet}>Dashboard</button>
+          
+          <button className={classes.button} 
+          style={{backgroundColor:viewBugsColor ? 'lightgrey' : 'white'}}
+          onClick={viewBugsSet}>View Bug</button>
           {Object.keys(userLoginData).length !== 0 && userLoginData.user.role === 1 ? 
-          <button className={classes.button} onClick={()=>dispatch(setCreateBug(true))}>Create Bug</button>
+         
+          <button style={{backgroundColor:createBugColor ? 'lightgrey' : 'white'}}
+          className={classes.button} onClick={createBugSet}>Create Bug</button>
           : null}
         </ButtonGroup>
       </div>

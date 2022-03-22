@@ -7,11 +7,11 @@ router.route('/api/bugs')
 .post(bugsCtrl.createBug)
 .get(bugsCtrl.getBugs)
 
-router.route('/api/bugs/:bugsId')
+router.route('/api/bug/:bugId')
 .get(bugsCtrl.getBug)
 .put(bugsCtrl.updateBug)
 .delete(bugsCtrl.removeBug)
 
-router.param('bugsId', bugsCtrl.bugByID)
+router.param('bugId', bugsCtrl.bugByID)
 
 export default router

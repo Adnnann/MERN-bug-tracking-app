@@ -5,8 +5,11 @@ import { makeStyles } from '@mui/styles'
 import DashboardButtons from './DashboardButtons'
 import Logout from './Logout'
 import BugsOverview from './BugOverview'
-import { Box } from "@mui/system"
-
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getViewBugsColor, 
+         setViewBugColor 
+} from '../features/bugsSlice'
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -52,6 +55,12 @@ const useStyles = makeStyles((theme) => ({
           minWidth:'130px',
         }
     },
+    dashboardLeftSide:{
+      [theme.breakpoints.up('md')]:{
+          borderRightStyle:'solid', 
+          height:800,
+      }
+  },
   
   }))
   
@@ -59,16 +68,20 @@ const useStyles = makeStyles((theme) => ({
 const ReportedBugs = () => {
 
     const classes = useStyles()
+    const dispatch = useDispatch()
+    const viewBugColor = useSelector(getViewBugsColor)
+
+    useEffect(()=>{
+      dispatch(setViewBugColor(true))
+    },[])
 
     return(
         <Grid container>
 
         <Grid item xs={12} md={3} lg={3} xl={3} className={classes.dashboardLeftSide}>
             <Item>
-
-                <DashboardButtons viewBugs={'grey'}/>
+                <DashboardButtons />
                 <Logout />
-
             </Item>
         </Grid>
 
@@ -77,8 +90,6 @@ const ReportedBugs = () => {
                 <BugsOverview />
             </Item>
         </Grid>
-
-        
 
     </Grid>
 

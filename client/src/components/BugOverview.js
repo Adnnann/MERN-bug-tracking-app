@@ -1,10 +1,15 @@
-import { Card, Typography } from "@mui/material"
+import { Typography } from "@mui/material"
 import Grid from '@mui/material/Grid'
 import Item from '@mui/material/Grid'
 import { Box } from "@mui/system"
 import { makeStyles } from "@mui/styles"
-import { getBugs, setBug } from "../features/bugsSlice"
+import { getAllBugs,  
+         setBug, 
+         setViewBug, 
+         setViewBugColor 
+} from "../features/bugsSlice"
 import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react"
 
 
 const useStyle = makeStyles((theme)=>({
@@ -34,19 +39,20 @@ const BugsOverview = () => {
 
     const classes = useStyle()
     const dispatch = useDispatch()
-    const bugsOverview = useSelector(getBugs)
-   
-    const priority = ['high', 'medium','low']
+    const bugsOverview = useSelector(getAllBugs)
+    
+    useEffect(()=>{
+     //set background color for view bug button
+      dispatch(setViewBugColor(true))
+    },[dispatch])
 
-    //const bugsOverview = []
+    //get any displayed bug on which user clicked and store in redux store
+    const selectBug = (index) => {
+        dispatch(setBug(bugsOverview[index]))
+        dispatch(setViewBug(true))
+    }
 
-    // for(let i=0; i<20; i++){
-    //     bugsOverview.push({id:i, priority:priority[Math.floor(Math.random()*3)], n:1, name: `test test test test tes test`+ i, appVersion:`v`+Math.floor(Math.random()*2)+`.0` })
-    // }
-
-    // console.log(typeof bugsOverview)
-
-    return(
+return(
  <Grid container justifyContent='center' className={classes.bugsContainer}>    
     {Object.keys(bugsOverview).length !== 0 ?
     Object.values(bugsOverview).map((item, index)=>{
@@ -54,7 +60,7 @@ const BugsOverview = () => {
             
             <Grid item xs={10} md={4} lg={4} xl={3} key={index}>
                 <Item>
-                    <Box className={classes.bugs} onClick={()=>dispatch(setBug(bugsOverview[index]))}>
+                    <Box className={classes.bugs} onClick={()=>selectBug(index)}>
                         <Typography variant="h4" style={{color:item.priority === 'high' ? 'red'
                                                                 : item.priority === 'medium' ? 'orange' : 'green', fontWeight:900, marginBottom:'5px'}}>
                         
@@ -69,7 +75,11 @@ const BugsOverview = () => {
 
                         <Typography variant="h4" style={{color:item.priority === 'high' ? 'red'
                                                                 : item.priority === 'medium' ? 'orange' : 'green', fontWeight:900}}>
-                            {item.appVersion}
+                            v: {item.version}
+                        </Typography>
+
+                        <Typography variant="h6" style={{color:'black', fontStyle:'italic', textAlign:'right', marginRight:'5px'}}>
+                            Status: {item.status}
                         </Typography>
     
                     </Box>

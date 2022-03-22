@@ -1,44 +1,34 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+# Description
 
-## Available Scripts
+This is simple app that enables user to create bugs, edit them and delete them (basic CRUD operations). In case if user is admin (status = 1 in database) then he can create bug, while regular user can't.
 
-In the project directory, you can run:
+All users can edit, delete and mark as complete or active all tasks in the system.
 
-### `npm start`
+There is small dashboard that shows number of low, medium and high level bugs stored in the system. If admin clicks on any of displayed divs on dashboard he will be redirected to view 
+bugs page, while regular user will not.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Create, edit, delete is done in modal windows (MUI Dialogue components)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Important notes
+In order to use the app you shound change in server/config/config.js url for Atlas Mongo DB database and in client/.env file you should store following data:
 
-### `npm test`
+DATABASE=bugTracker (I will delete this after grading is done) 
+PASSWORD=yroaLvViZ6Hz9lSt (I will delete this after grading is done)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+There are two users created for checking how app behaves when admin is logged in compared to regular user being logged in.
 
-### `npm run build`
+username: admin       user:user
+password: admin123    password: user123
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+I have also added few more users in the system for testing assigned to field in the app
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Default port for connection to the express server is 5000 and default proxy set in package.json in client folder is http://localhost:5000. In case you are using Mac change default port to 3001 as 5000 is not allowed on Mac. Also don't forget to change on proxy last part of the string (5000 to 3001)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Redux toolkit
+For state management Redux toolkit is used. For fetching API data redux thunk middleware is used.
 
-### `npm run eject`
+## Server and database
+For server express is used and all server logic is stored in server folder.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## UI
+For UI Material UI (MUI) library is used.

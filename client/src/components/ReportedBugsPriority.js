@@ -1,10 +1,13 @@
-import { Card, Typography } from "@mui/material"
+import { bottomNavigationClasses, Card, Typography } from "@mui/material"
 import Grid from '@mui/material/Grid'
 import Item from '@mui/material/Grid'
 import { Box } from "@mui/system"
 import { makeStyles } from "@mui/styles"
-import { useSelector } from "react-redux"
-import { getBugs } from "../features/bugsSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { getAllBugs, getBugs, getUserSigninData } from "../features/bugsSlice"
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom";
+
 
 
 const useStyle = makeStyles((theme)=>({
@@ -34,35 +37,35 @@ const useStyle = makeStyles((theme)=>({
 const ReportedBugsPriority = () => {
 
     const classes = useStyle()
-    const bugsOverview = useSelector(getBugs)
+    const bugsOverview = useSelector(getAllBugs)
+    const userData = useSelector(getUserSigninData)
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
-    // const bugsOverview = []
+    useEffect(()=>{
+        dispatch(getBugs())
+  
+    },[])
 
-    // for(let i=0; i<20; i++){
-    //     bugsOverview.push({priority:priority[Math.floor(Math.random()*3)], n:1 })
-    // }
 
     return(
     <Grid container justifyContent='center' className={classes.bugsContainer}>
         {Object.keys(bugsOverview).length !== 0 ?
            <> 
-        <Grid item xs={10} md={4} lg={4} xl={3}>
+        <Grid item xs={10} md={4} lg={4} xl={3} onClick={()=> userData.user.role === 1 ? navigate('/viewBugs') : null}>
         <Item>
             <Box 
             className={classes.bugs}>
             
                 <Typography variant="h4" style={{marginBottom:'20%', color:'red', fontWeight:900}}>
-                
-                High
-           
+                    High
                 </Typography>
 
                 <Typography variant="h4" style={{color:'red', fontWeight:900}}>
-                { 
+                {
                     Object.values(bugsOverview)
-                .filter(item=>item.priority==='high')
-                .map(item=>item.n)
-                .reduce((prev,curr)=>prev+curr)
+                    .filter(item=>item.priority==='high')
+                    .length
                 }
                 </Typography>
 
@@ -70,21 +73,18 @@ const ReportedBugsPriority = () => {
         </Item>
     </Grid>
     
-    <Grid item xs={10} md={4} lg={4} xl={3}>
+    <Grid item xs={10} md={4} lg={4} xl={3} onClick={()=> userData.user.role === 1 ? navigate('/viewBugs') : null}>
         <Item>
             <Box className={classes.bugs}>
                 <Typography variant="h4" style={{marginBottom:'20%', color:'orange', fontWeight:900}}>
-                
-                High
-           
+                    High
                 </Typography>
 
                 <Typography variant="h4" style={{color:'orange', fontWeight:900}}>
                 {
                     Object.values(bugsOverview)
-                .filter(item=>item.priority==='medium')
-                .map(item=>item.n)
-                .reduce((prev,curr)=>prev+curr)
+                    .filter(item=>item.priority==='medium')
+                    .length
                 }
                 </Typography>
 
@@ -92,21 +92,18 @@ const ReportedBugsPriority = () => {
         </Item>
     </Grid>
     
-    <Grid item xs={10} md={4} lg={4} xl={3}>
+    <Grid item xs={10} md={4} lg={4} xl={3} onClick={()=> userData.user.role === 1 ? navigate('/viewBugs') : null}>
         <Item>
             <Box className={classes.bugs}>
                 <Typography variant="h4" style={{marginBottom:'20%', color:'green', fontWeight:900}}>
-                
-                Low
-           
+                    Low
                 </Typography>
 
                 <Typography variant="h4" style={{color:'green', fontWeight:900}}>
                 {
                     Object.values(bugsOverview)
-                .filter(item=>item.priority==='low')
-                .map(item=>item.n)
-                .reduce((prev,curr)=>prev+curr)
+                    .filter(item=>item.priority==='low')
+                    .length
                 }
                 </Typography>
 

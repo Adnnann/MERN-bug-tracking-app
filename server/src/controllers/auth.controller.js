@@ -4,7 +4,7 @@ import User from '../models/user.model'
 import config from '../config/config'
 
 const signin = (req, res) => {
-console.log(req.body.name)
+
     User.findOne({'name': req.body.name},(err, user) => {
         if(err || !user){
             return res.send({error: 'User not found'})

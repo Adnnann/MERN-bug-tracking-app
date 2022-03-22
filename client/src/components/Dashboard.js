@@ -1,15 +1,13 @@
-import {Box, Button, Grid } from '@mui/material'
+import { Grid } from '@mui/material'
 import Item from '@mui/material/Grid'
 import DashboardButtons from './DashboardButtons'
 import Logout from './Logout'
 import ReportedBugsPriority from './ReportedBugsPriority'
 import { makeStyles } from '@mui/styles'
 import { useEffect } from 'react'
-import { resetStore, getToken, userToken, getUserSigninData } from '../features/bugsSlice'
+import { getToken, userToken } from '../features/bugsSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-
-
 
 const useStyle = makeStyles((theme)=>({
     dashboardLeftSide:{
@@ -30,9 +28,9 @@ const Dashboard = () => {
         dispatch(userToken())
         //In case user tried to visit url /protected without token, redirect 
         //to signin page
-        if(token === 'Request failed with status code 500' 
-            || token ==='Request failed with status code 401'){
-            dispatch(resetStore())
+        if(token === 'Request failed with status code 500'   
+        || token ==='Request failed with status code 401'
+        || !token.hasOwnProperty('message')){
             navigate('/')
         }
         

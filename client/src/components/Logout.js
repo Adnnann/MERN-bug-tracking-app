@@ -1,7 +1,6 @@
 import Button from '@mui/material/Button'
 import { makeStyles } from '@mui/styles';
 import { useDispatch } from 'react-redux';
-import { Navigate } from 'react-router-dom';
 import { resetStore, signoutUser } from '../features/bugsSlice';
 import { useNavigate } from 'react-router-dom';
 

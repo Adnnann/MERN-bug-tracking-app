@@ -14,16 +14,15 @@ const createBug = (req, res) => {
     })
 }
 const getBugs = (req, res) => {
-    console.log('testß')
     // get id to enable filtering of data
     const userId = jwtDecode(req.cookies.userJwtToken)._id
     Bug.find({})
     //0 are users 1 admins
-    .exec((err, Bugs) => {
+    .exec((err, bugs) => {
         if(err){
             return res.send({error:dbErrorHandlers.getErrorMessage(err)})
         }
-        res.send({Bugs:Bugs})
+        res.send(bugs)
     })
 }
 
@@ -47,10 +46,11 @@ const updateBug = (req, res, next) => {
 const removeBug = (req, res, next) => {
     let bug = req.profile
     bug.remove((err)=>{
+
         if(err){
             return res.send({error: errorHandler.getErrorMessage(err)})
         }
-        res.send({message:'Bug deleted'})
+      res.send({message:'Bug deleted'})
     })
 }
   

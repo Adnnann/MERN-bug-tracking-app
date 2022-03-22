@@ -36,7 +36,12 @@ const BugsSchema = new moongose.Schema({
         required: 'Creator must be entered',
     },
     date:{
-        default: Date
+        type:Date,
+        default: Date.now
+    },
+    status:{
+        type: String,
+        default:'Active'
     },
     updated: Date
 })

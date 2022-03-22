@@ -5,32 +5,24 @@ import Box from '@mui/material/Box'
 import bugTrackerIcon from '../assets/images/bugTrackerIcon.jpeg'
 import { Grid } from "@mui/material";
 
-
-
 const Header = () => {
 
-  
     return(
-        
-    <AppBar position="static" style={{justifyContent:'center'}}>
-
-      <Grid container justifyContent={'center'} style={{paddingBottom:'10px'}}>
-      <Box
-            component='img'
-            width={'80px'}
-            marginTop='10px'
-            marginBottom='1Opx'
-            src={bugTrackerIcon}>
-        </Box> 
-
-      </Grid>
-        
-  
-    
-
-   </AppBar>
+       //set margin on body tag to 0 to prevent AppBar to add margin on screen
+        <AppBar position="static">
+            <Toolbar>
+            <Grid container justifyContent={'center'} style={{paddingBottom:'10px'}} maxWidth="100%">
+                <Box
+                    component='img'
+                    width={'80px'}
+                    marginTop='10px'
+                    marginBottom='1Opx'
+                    src={bugTrackerIcon}>
+                </Box> 
+            </Grid> 
+            </Toolbar>
+        </AppBar>
     )
-
 
 }
     

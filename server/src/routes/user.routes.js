@@ -16,6 +16,7 @@ router.get('/protected', passport.authenticate('jwt', { session: false }),
 )
 
 router.route('/api/users/')
+.get(userCtrl.getAllUsers)
 .post(userCtrl.create)
 
 router.route('/api/users/:userId')
