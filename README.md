@@ -17,8 +17,11 @@ PASSWORD=yroaLvViZ6Hz9lSt (I will delete this after grading is done)
 
 There are two users created for checking how app behaves when admin is logged in compared to regular user being logged in.
 
-username: admin       user:user
-password: admin123    password: user123
+username: admin       
+password: admin123    
+
+username:user
+password: user123
 
 I have also added few more users in the system for testing assigned to field in the app
 
