@@ -110,7 +110,7 @@ const DashboardButtons = () => {
           
           <button className={classes.button} 
           style={{backgroundColor:viewBugsColor ? 'lightgrey' : 'white'}}
-          onClick={viewBugsSet}>View Bug</button>
+          onClick={viewBugsSet}>View Bugs</button>
           {Object.keys(userLoginData).length !== 0 && userLoginData.user.role === 1 ? 
          
           <button style={{backgroundColor:createBugColor ? 'lightgrey' : 'white'}}

@@ -1,10 +1,10 @@
-import { bottomNavigationClasses, Card, Typography } from "@mui/material"
+import { Typography } from "@mui/material"
 import Grid from '@mui/material/Grid'
 import Item from '@mui/material/Grid'
 import { Box } from "@mui/system"
 import { makeStyles } from "@mui/styles"
 import { useDispatch, useSelector } from "react-redux"
-import { getAllBugs, getBugs, getUserSigninData } from "../features/bugsSlice"
+import { getAllBugs, getBugs, getUserSigninData, setDashboardColor } from "../features/bugsSlice"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 
@@ -47,12 +47,16 @@ const ReportedBugsPriority = () => {
   
     },[])
 
+    const redirectToViewBug = () =>{
+        dispatch(setDashboardColor(false))
+        navigate('/viewBugs')
+    }
 
     return(
     <Grid container justifyContent='center' className={classes.bugsContainer}>
         {Object.keys(bugsOverview).length !== 0 ?
            <> 
-        <Grid item xs={10} md={4} lg={4} xl={3} onClick={()=> userData.user.role === 1 ? navigate('/viewBugs') : null}>
+        <Grid item xs={10} md={4} lg={4} xl={3} onClick={()=> userData.user.role === 1 ? redirectToViewBug() : null}>
         <Item>
             <Box 
             className={classes.bugs}>
@@ -73,7 +77,7 @@ const ReportedBugsPriority = () => {
         </Item>
     </Grid>
     
-    <Grid item xs={10} md={4} lg={4} xl={3} onClick={()=> userData.user.role === 1 ? navigate('/viewBugs') : null}>
+    <Grid item xs={10} md={4} lg={4} xl={3} onClick={()=> userData.user.role === 1 ? redirectToViewBug() : null}>
         <Item>
             <Box className={classes.bugs}>
                 <Typography variant="h4" style={{marginBottom:'20%', color:'orange', fontWeight:900}}>
@@ -92,7 +96,7 @@ const ReportedBugsPriority = () => {
         </Item>
     </Grid>
     
-    <Grid item xs={10} md={4} lg={4} xl={3} onClick={()=> userData.user.role === 1 ? navigate('/viewBugs') : null}>
+    <Grid item xs={10} md={4} lg={4} xl={3} onClick={()=> userData.user.role === 1 ? redirectToViewBug() : null}>
         <Item>
             <Box className={classes.bugs}>
                 <Typography variant="h4" style={{marginBottom:'20%', color:'green', fontWeight:900}}>

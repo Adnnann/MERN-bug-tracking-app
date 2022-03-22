@@ -45,7 +45,7 @@ const Dashboard = () => {
             <Grid item xs={12} md={3} lg={3} xl={3} className={classes.dashboardLeftSide}>
                 <Item>
 
-                    <DashboardButtons dashboard={'grey'}/>
+                    <DashboardButtons />
                     <Logout />
 
                 </Item>
