@@ -7,9 +7,12 @@ import Logout from './Logout'
 import BugsOverview from './BugOverview'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getViewBugsColor, 
-         setViewBugColor 
+import { getToken, 
+         getViewBugsColor, 
+         setViewBugColor,
+         userToken
 } from '../features/bugsSlice'
+import { useNavigate } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -70,10 +73,23 @@ const ReportedBugs = () => {
     const classes = useStyles()
     const dispatch = useDispatch()
     const viewBugColor = useSelector(getViewBugsColor)
+    const navigate = useNavigate()
+    const token = useSelector(getToken)
 
     useEffect(()=>{
+
+      dispatch(userToken())
+      //In case user tried to visit url /protected without token, redirect 
+      //to signin page
+      if(token === 'Request failed with status code 500'   
+      || token ==='Request failed with status code 401'
+      || !token.hasOwnProperty('message')){
+          navigate('/')
+      }
+
       dispatch(setViewBugColor(true))
-    },[])
+
+    },[token.length, dispatch])
 
     return(
         <Grid container>
