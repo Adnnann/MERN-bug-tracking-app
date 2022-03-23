@@ -136,7 +136,7 @@ aria-describedby="modal-modal-description">
         
         <Grid item xs={12} md={10} lg={10} xl={10}>
   
-        <Grid container justifyContent={'center'} style={{overflow:"scroll",
+        <Grid container justifyContent={'center'} style={{
             marginBottom:'4%', paddingBottom:'10px', borderBottomStyle:'solid'}}>
     
             <Grid item xs={12} md={9} lg={9} xl={9} className={classes.bugName}>
