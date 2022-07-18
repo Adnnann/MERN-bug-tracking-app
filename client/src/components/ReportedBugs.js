@@ -89,7 +89,7 @@ const ReportedBugs = () => {
   }, [token.length, dispatch]);
 
   return (
-    <Grid container style={{ paddingRight: "20px" }}>
+    <Grid container>
       <Grid
         item
         xs={12}
@@ -99,7 +99,6 @@ const ReportedBugs = () => {
         className={classes.dashboardLeftSide}
       >
         <DashboardButtons />
-        <Logout />
       </Grid>
 
       <Grid item xs={12} md={9} lg={9} xl={9}>

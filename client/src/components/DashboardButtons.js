@@ -46,17 +46,11 @@ const useStyles = makeStyles((theme) => ({
     borderStyle: "none",
     minHeight: "60px",
     fontSize: "24px",
-    color: "black",
-    textAlign: "left",
-    paddingLeft: "5px",
-    marginLeft: "0px",
-    paddingTop: "10px",
-    paddingBottom: "10px",
-    textAlignLast: "left",
-    backgroundColor: "white",
+    borderRadius: "0px",
     [theme.breakpoints.down("xs")]: {
       fontSize: "20px",
       minWidth: "130px",
+      display: "flex",
     },
   },
 }));
@@ -98,39 +92,40 @@ const DashboardButtons = () => {
   };
 
   return (
-    <div className={classes.container}>
-      <ButtonGroup
-        aria-label="full width outlined button group"
-        className={classes.root}
-        classes={{ groupedOutlined: classes.groupedOutlined }}
+    <>
+      <Button
+        auto-focus="true"
+        variant="contained"
+        onClick={dashboardSet}
+        className={classes.button}
+        color="warning"
+        fullWidth
       >
-        <Button
-          className={classes.button}
-          style={{ backgroundColor: dashboardColor ? "lightgrey" : "white" }}
-          onClick={dashboardSet}
-        >
-          Dashboard
-        </Button>
+        Dashboard
+      </Button>
 
+      <Button
+        className={classes.button}
+        color="warning"
+        variant="contained"
+        onClick={viewBugsSet}
+        fullWidth
+      >
+        View Bugs
+      </Button>
+      {Object.keys(userLoginData).length !== 0 &&
+      userLoginData.user.role === 1 ? (
         <Button
+          color="warning"
           className={classes.button}
-          style={{ backgroundColor: viewBugsColor ? "lightgrey" : "white" }}
-          onClick={viewBugsSet}
+          variant="contained"
+          onClick={createBugSet}
+          fullWidth
         >
-          View Bugs
+          Create Bug
         </Button>
-        {Object.keys(userLoginData).length !== 0 &&
-        userLoginData.user.role === 1 ? (
-          <Button
-            style={{ backgroundColor: createBugColor ? "lightgrey" : "white" }}
-            className={classes.button}
-            onClick={createBugSet}
-          >
-            Create Bug
-          </Button>
-        ) : null}
-      </ButtonGroup>
-    </div>
+      ) : null}
+    </>
   );
 };
 
