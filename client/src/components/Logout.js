@@ -1,41 +1,45 @@
-import Button from '@mui/material/Button'
-import { makeStyles } from '@mui/styles';
-import { useDispatch } from 'react-redux';
-import { resetStore, signoutUser } from '../features/bugsSlice';
-import { useNavigate } from 'react-router-dom';
+import Button from "@mui/material/Button";
+import { makeStyles } from "@mui/styles";
+import { useDispatch } from "react-redux";
+import { resetStore, signoutUser } from "../features/bugsSlice";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
-    logout:{
-        marginTop: theme.spacing(10),
-        minWidth:'60px',
-        fontSize:'20px',
-        marginLeft:'100px',
-        minHeight:'60px',
-        [theme.breakpoints.down('xs')]:{
-            marginTop:theme.spacing(0),
-            width:'100%',
-            marginLeft:'0',
-            borderRadius:'0'
-        }
+  logout: {
+    marginTop: theme.spacing(0),
+    minWidth: "60px",
+    fontSize: "20px",
+    borderRadius: "0px",
+    minHeight: "60px",
+    [theme.breakpoints.down("xs")]: {
+      marginTop: theme.spacing(0),
+      width: "100%",
+      marginLeft: "0",
+      borderRadius: "0",
     },
-}))
+  },
+}));
 const Logout = () => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const classes = useStyles()
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
+  const signout = () => {
+    dispatch(signoutUser());
+    dispatch(resetStore());
+    navigate("/");
+  };
 
-    const signout = () => {
-        dispatch(signoutUser())
-        dispatch(resetStore())
-        navigate('/')
-    }
+  return (
+    <Button
+      variant="contained"
+      fullWidth
+      className={classes.logout}
+      onClick={signout}
+    >
+      Logout
+    </Button>
+  );
+};
 
-    return(
-        <Button variant='contained' 
-        className={classes.logout}
-        onClick={signout}>Logout</Button>
-    )
-}
-
-export default Logout
+export default Logout;
