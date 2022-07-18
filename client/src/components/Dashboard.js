@@ -42,8 +42,8 @@ const Dashboard = () => {
       <Grid
         item
         xs={12}
-        md={2}
-        lg={2}
+        md={3}
+        lg={3}
         xl={2}
         className={classes.dashboardLeftSide}
       >
