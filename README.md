@@ -18,7 +18,7 @@ PASSWORD=YOUR MONGODB PASSWORD
 
 Default port for connection to the express server is 5000 and default proxy set in package.json in client folder is http://localhost:5000. 
 
-Redux toolkit
+## Redux toolkit
 For state management Redux toolkit is used. For fetching API data redux is used.
 
 ## Server and database
